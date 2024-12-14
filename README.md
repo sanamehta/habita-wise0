@@ -15,6 +15,11 @@ Key features include:
 
 - Scalability: While the app initially focuses on California, it is designed to scale nationally to address the broader rental market.
 
+*Demo* : https://www.loom.com/share/4fc28087b0f143669264fa0576234c22?sid=67f74217-41e7-4d83-8e2f-3fac3fdfdf8a
+
+
+
+
 * 💬 OpenAI Assistants API chat UI
 * 🛠️ It works easily by setting the ASSISTANT IDs
 * 📁 Supports file upload and file download
@@ -22,7 +27,6 @@ Key features include:
 * 👥 Supports multiple Assistant profiles in one place
 * 🪟 Support to Azure OpenAI
 
-<img width="1459" alt="スクリーンショット 2023-11-20 2 23 51" src="https://github.com/ryo-ma/gpt-assistants-api-ui/assets/6661165/5c288d51-196a-4919-bc4d-dc508146f58a">
 
 ## 🌟 Quick Start
 
