@@ -1,9 +1,10 @@
-# habita - wise
-Habita-Wise is an AI-powered tenant advocacy platform designed to empower renters by addressing systemic challenges in the rental housing market. The app helps tenants navigate landlord disputes, understand their legal rights, and access actionable resources for resolving rental issues. Combining data-driven insights with advanced automation, Habita-Wise provides tools like personalized legal guidance, automated document generation, and seamless communication support, such as making calls or filing complaints.
+# Habita-Wise: Legal Tenant Rights Assistant 🏠⚖️
 
-Key features include:
+## Overview
 
+Tenant Rights Assistant is an AI-powered Streamlit application designed to help tenants navigate complex legal situations, understand their rights, and take informed actions when facing issues with their rental properties.
 
+### Key Features
 
 - AI-Driven Guidance: Through conversational interaction, the app collects tenant issues, retrieves insights from a database of historical landlord-tenant cases, and predicts the likelihood of success in legal disputes.
 
@@ -14,120 +15,81 @@ Key features include:
 - Tenant Empowerment: The platform simplifies complex legal jargon, ensuring users understand their rights and are equipped to take informed action.
 
 - Scalability: While the app initially focuses on California, it is designed to scale nationally to address the broader rental market.
+- Legal Consultation: Generate lists of potential legal professionals
+- Document Upload: Support for uploading and analyzing rental agreements and evidence
 
-*Demo* : https://www.loom.com/share/4fc28087b0f143669264fa0576234c22?sid=67f74217-41e7-4d83-8e2f-3fac3fdfdf8a
+## Prerequisites
 
+### System Requirements
+- Python 3.8+
+- Streamlit
+- OpenAI API Key
+- Perplexity API Key (for advanced research)
+- Vapi API Token (for optional phone call assistance)
 
+### Required API Keys
+You'll need to set up the following API keys in a `.env` file:
+- `OPENAI_API_KEY`: OpenAI API key for AI assistance
+- `ASSISTANT_ID`: Your specific OpenAI Assistant ID
+- `PERPLEXITY_API_KEY`: Perplexity API key for local organization research
+- `VAPI_AUTH_TOKEN`: Vapi API token for potential phone call features
 
+## Installation
 
-* 💬 OpenAI Assistants API chat UI
-* 🛠️ It works easily by setting the ASSISTANT IDs
-* 📁 Supports file upload and file download
-* 🏃 Supports Streaming API
-* 👥 Supports multiple Assistant profiles in one place
-* 🪟 Support to Azure OpenAI
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/tenant-rights-assistant.git
+cd tenant-rights-assistant
+```
 
+2. Create a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+```
 
-## 🌟 Quick Start
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
 
-1. 👤 Create an assistant on the OpenAI site & Get assistant ID (https://platform.openai.com/assistants)
-2. 🔑 Get the API key from OpenAI (https://platform.openai.com/api-keys)
-3. ⬇️ Clone the repository
+4. Create a `.env` file in the project root and add your API keys:
+```
+OPENAI_API_KEY=your_openai_api_key
+ASSISTANT_ID=your_assistant_id
+PERPLEXITY_API_KEY=your_perplexity_api_key
+VAPI_AUTH_TOKEN=your_vapi_auth_token
+```
 
-    ```bash
-    $ git clone https://github.com/ryo-ma/gpt-assistants-api-ui.git
-    ```
-
-4. 📦 Install dependencies
-
-    ```bash
-    $ poetry install
-    ```
-
-5. ⚙️ Set environment variables file `.env`
-
-    ```bash
-    # OpenAI settings
-    OPENAI_API_KEY="sk-xxx"
-    APP_ENABLED_FILE_UPLOAD_MESSAGE="Upload a file" # Leave empty to disable
-
-    AUTHENTICATION_REQUIRED="False" # Must change to True if you require authentication
-
-    # When using only one assistant, set the following, unset the OPENAI_ASSISTANTS variable.
-    ASSISTANT_ID="asst_xxx"
-    ASSISTANT_TITLE="Assistants API UI" # This is for the single agent title
-
-    # When using multiple assistants, set the following.
-    OPENAI_ASSISTANTS='[{"id": "asst_xxx", "title": "Assistants XXX UI"}, {"id": "asst_yyy", "title": "Assistants YYY UI"}]'
-    ```
-    If you use azure instead, set `AZURE_OPENAI_ENDPOINT` and `AZURE_OPENAI_KEY`
-
-6. 🔑 Set Authentication configuration (optional)
-
-    To set up authentication, create a [secrets](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management) file `.streamlit/secrets.toml`  as below:
-
-    ```toml
-    [credentials]
-    usernames = { jsmith = {failed_login_attempts = 0,  logged_in = false, name = "John Smith", password = "abc"}, rbriggs = {failed_login_attempts = 0,  logged_in = false, name = "R Briggs", password = "abc"}}
-
-    [cookie]
-    expiry_days = 30
-    key = "some_signature_key"  # Must be string
-    name = "some_cookie_name"
-    ```
-    Reference:  [Deploying Streamlit-Authenticator via Streamlit Community Cloud](https://discuss.streamlit.io/t/deploying-streamlit-authenticator-via-streamlit-community-cloud/39085)
-
-## 🏃‍️ Run the app using Streamlit
-
+## Running the Application
 
 ```bash
-$ poetry shell
-$ streamlit run app.py
+streamlit run app.py
 ```
 
-## 🐳 Run the app using Docker
+## Project Structure
 
-1. 💽 Build image
+- `app.py`: Main Streamlit application
+- `tools.py`: Backend functions for API calls and tool handling
+- `next_action_steps.py`: Generate interactive next action steps
+- `style.css`: Custom styling for the application
+- `.env`: Environment variables (not tracked in version control)
 
-    ```bash
-    $ docker compose build
-    ```
+## Usage
 
-2. 🏃‍️ Run the app
+1. Open the application in your browser
+2. Upload relevant documents (rental agreement, notices, etc.)
+3. Describe your tenant issue
+4. Receive AI-powered guidance
+5. Choose from next action steps:
+   - File a Complaint with Local Authority
+   - Communicate with Landlord
+   - Consult Legal Professionals
 
-    ```bash
-    $ docker compose up
-    ```
-Access to [http://localhost:8501](http://localhost:8501).
 
-## 🌐 Deploy to Streamlit Cloud
-You can fork this repository and deploy the app to https://share.streamlit.io/. No need to run the app on your local machine.
+## Legal Disclaimer
 
-> Don't forget to choose 3.10 as the Python version and set environment variables in the "Advanced settings" during deployment.
+This application provides general information and guidance. It is not a substitute for professional legal advice. Always consult with a qualified legal professional for specific legal concerns.
 
-To use authentication with Streamlit Cloud, please use this TOML format:
 
-```toml
-# Environment variables
-# OpenAI settings
-OPENAI_API_KEY="sk-xxx"
-APP_ENABLED_FILE_UPLOAD_MESSAGE="Upload a file" # Leave empty to disable
-
-AUTHENTICATION_REQUIRED="False" # Must change to True if you require authentication
-
-# When using only one assistant, set the following, unset the OPENAI_ASSISTANTS variable.
-ASSISTANT_ID="asst_xxx"
-ASSISTANT_TITLE="Assistants API UI" # This is for the single agent title
-
-# When using multiple assistants, set the following.
-OPENAI_ASSISTANTS='[{"id": "asst_xxx", "title": "Assistants XXX UI"}, {"id": "asst_yyy", "title": "Assistants YYY UI"}]'
-
-# Authentication secrets
-[credentials]
-usernames = { jsmith = {failed_login_attempts = 0,  logged_in = false, name = "John Smith", password = "abc"}, rbriggs = {failed_login_attempts = 0,  logged_in = false, name = "R Briggs", password = "abc"}}
-
-[cookie]
-expiry_days = 30
-key = "some_signature_key"  # Must be string
-name = "some_cookie_name"
-```
+Project Demo: [https://www.loom.com/share/4fc28087b0f143669264fa0576234c22?sid=67f74217-41e7-4d83-8e2f-3fac3fdfdf8a]
