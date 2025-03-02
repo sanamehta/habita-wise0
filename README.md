@@ -20,13 +20,6 @@ Tenant Rights Assistant is an AI-powered Streamlit application designed to help 
 
 ## Prerequisites
 
-### System Requirements
-- Python 3.8+
-- Streamlit
-- OpenAI API Key
-- Perplexity API Key (for advanced research)
-- Vapi API Token (for optional phone call assistance)
-
 ### Required API Keys
 You'll need to set up the following API keys in a `.env` file:
 - `OPENAI_API_KEY`: OpenAI API key for AI assistance
@@ -86,10 +79,11 @@ streamlit run app.py
    - Communicate with Landlord
    - Consult Legal Professionals
 
+Project Demo: [https://www.loom.com/share/4fc28087b0f143669264fa0576234c22?sid=67f74217-41e7-4d83-8e2f-3fac3fdfdf8a]
 
 ## Legal Disclaimer
 
 This application provides general information and guidance. It is not a substitute for professional legal advice. Always consult with a qualified legal professional for specific legal concerns.
 
 
-Project Demo: [https://www.loom.com/share/4fc28087b0f143669264fa0576234c22?sid=67f74217-41e7-4d83-8e2f-3fac3fdfdf8a]
+
