@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenant Rights Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Upload Files</h2>
+            <form id="upload-form">
+                <input type="file" id="file-upload" accept=".pdf,.txt,.csv,.xlsx,.docx,.json,.png,.jpg,.jpeg">
+                <button type="submit">Upload</button>
+            </form>
+            <p class="caption">Supported formats: PDF, TXT, Word, Excel, Images</p>
+        </div>
+        
+        <div class="main-content">
+            <h1>Tenant Rights Assistant</h1>
+            <div id="chat-container"></div>
+            <div class="input-container">
+                <input type="text" id="user-input" placeholder="Type your message here...">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sessionId = null;
+        const chatContainer = document.getElementById('chat-container');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const uploadForm = document.getElementById('upload-form');
+        const fileUpload = document.getElementById('file-upload');
+
+        function addMessage(content, role) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${role}`;
+            messageDiv.innerHTML = `
+                <div class="avatar">${role === 'user' ? '👤' : '🤖'}</div>
+                <div class="content">${content}</div>
+            `;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+
+            userInput.value = '';
+            addMessage(message, 'user');
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        session_id: sessionId
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    sessionId = data.session_id;
+                    addMessage(data.response, 'assistant');
+                } else {
+                    addMessage(`Error: ${data.error}`, 'system');
+                }
+            } catch (error) {
+                addMessage(`Error: ${error.message}`, 'system');
+            }
+        }
+
+        async function uploadFile(event) {
+            event.preventDefault();
+            const file = fileUpload.files[0];
+            if (!file) return;
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('session_id', sessionId);
+
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    sessionId = data.session_id;
+                    addMessage(`File ${file.name} uploaded successfully!`, 'system');
+                } else {
+                    addMessage(`Error: ${data.error}`, 'system');
+                }
+            } catch (error) {
+                addMessage(`Error: ${error.message}`, 'system');
+            }
+
+            fileUpload.value = '';
+        }
+
+        sendButton.addEventListener('click', sendMessage);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+        uploadForm.addEventListener('submit', uploadFile);
+    </script>
+</body>
+</html> 
