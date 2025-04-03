@@ -12,14 +12,15 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <i class="fas fa-balance-scale"></i>
-                <span>Habita Wise</span>
+                <a href="/">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Habita Wise</span>
+                </a>
             </div>
             <div class="nav-links">
                 <a href="#home">Home</a>
-                <a href="#about">About</a>
                 <a href="#how-it-works">How It Works</a>
-                <a href="#contact">Contact</a>
+                <a href="#footer">Contact</a>
                 <div class="action-buttons">
                     <a href="/resources" class="action-button">Resources</a>
                     <a href="/lawyers" class="action-button">Find Lawyers</a>
@@ -37,7 +38,7 @@
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Empowering Tenants, One Chat at a Time</h1>
-                <p>Your AI-powered legal assistant for tenant rights. Get instant guidance on leases, disputes, evictions, and more – all for free.</p>
+                <p>Your AI-powered legal assistant for tenant rights. Get instant guidance on leases, disputes, evictions, and more.</p>
                 <div class="hero-buttons">
                     <a href="/resources" class="action-button">Resources</a>
                     <a href="/lawyers" class="action-button">Find Lawyers</a>
@@ -45,34 +46,39 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="{{ url_for('static', filename='chatbot-illustration.svg') }}" alt="AI Chatbot Illustration">
+                <img src="{{ url_for('static', filename='images/chat-interface.png') }}" alt="Chat Interface Example">
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="features">
+    <section class="features">
         <h2>Why Choose Our Assistant</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <i class="fas fa-clock"></i>
-                <h3>24/7 Availability</h3>
-                <p>Get help whenever you need it, day or night.</p>
+                <i class="fas fa-robot"></i>
+                <h3>24/7 AI Support</h3>
+                <p>Get instant answers to your tenant rights questions anytime, anywhere. Our AI assistant is always available to help.</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-lock"></i>
-                <h3>Confidential</h3>
-                <p>Your conversations are private and secure.</p>
+                <i class="fas fa-chart-line"></i>
+                <h3>Analyzing Historical Case Data</h3>
+                <p>The AI matches your issue to a database of past landlord-tenant cases, providing insights into success likelihood and tailored strategies based on similar cases.</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-graduation-cap"></i>
-                <h3>Expert Knowledge</h3>
-                <p>Powered by legal expertise and AI technology.</p>
+                <i class="fas fa-cogs"></i>
+                <h3>Automated Actions</h3>
+                <p>The AI can perform automated tasks on your behalf, such as drafting emails, making phone calls, or filing official reports.</p>
             </div>
             <div class="feature-card">
-                <i class="fas fa-hand-holding-usd"></i>
-                <h3>Free Service</h3>
-                <p>Access legal guidance without any cost.</p>
+                <i class="fas fa-gavel"></i>
+                <h3>Lawyer Listings</h3>
+                <p>Get access to a curated list of lawyers and legal services specializing in landlord-tenant disputes in your area.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-link"></i>
+                <h3>Integration with Online Resources</h3>
+                <p>The AI connects to external resources and agents, enabling real-time searches for forms, contacts, and filing procedures.</p>
             </div>
         </div>
     </section>
@@ -96,18 +102,30 @@
                 <h3>Get Guidance</h3>
                 <p>Receive instant, accurate legal information.</p>
             </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Automate Filing</h3>
+                <p>Automate calls to file complaints and generate email drafts.</p>
+            </div>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
-        <h2>Ready to Get Started?</h2>
-        <p>Join thousands of tenants who have found clarity and confidence through our AI assistant.</p>
-        <a href="/chat" class="cta-button">Chat Now</a>
+        <div class="cta-content">
+            <h2>Ready to Get Started?</h2>
+            <p>Take control of your tenant rights today. Our AI assistant is here to help you understand your rights and navigate the legal system.</p>
+            <div class="cta-buttons">
+                <a href="/chat" class="cta-button">
+                    <i class="fas fa-comments"></i>
+                    Chat Now
+                </a>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer id="footer">
         <div class="footer-container">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -118,9 +136,8 @@
                 </div>
                 <div class="footer-links">
                     <a href="/">Home</a>
-                    <a href="/#about">About</a>
                     <a href="/#how-it-works">How It Works</a>
-                    <a href="/#contact">Contact Us</a>
+                    <a href="/#footer">Contact Us</a>
                 </div>
                 <div class="footer-contact">
                     <a href="mailto:sana@uni.minerva.edu"><i class="fas fa-envelope"></i> sana@uni.minerva.edu</a>

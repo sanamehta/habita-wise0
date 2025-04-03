@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habita Wise - Chat</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
+    <title>Chat with AI Assistant - Habita Wise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
@@ -13,25 +13,30 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <i class="fas fa-balance-scale"></i>
-                <span>Habita Wise</span>
+                <a href="/">
+                    <i class="fas fa-balance-scale"></i>
+                    <span>Habita Wise</span>
+                </a>
             </div>
             <div class="nav-links">
-                <a href="/#home">Home</a>
-                <a href="/#about">About</a>
+                <a href="/">Home</a>
                 <a href="/#how-it-works">How It Works</a>
-                <a href="/#contact">Contact</a>
-                <div class="action-buttons">
-                    <a href="/resources" class="action-button">Resources</a>
-                    <a href="/lawyers" class="action-button">Find Lawyers</a>
-                    <a href="/chat" class="cta-button">Chat Now</a>
-                </div>
+                <a href="/resources">Resources</a>
+                <a href="/lawyers">Find Lawyers</a>
+                <a href="/chat">Chat Now</a>
             </div>
             <div class="mobile-menu">
                 <i class="fas fa-bars"></i>
             </div>
         </div>
     </nav>
+
+    <!-- Chat Header -->
+    <header class="page-header">
+        <div class="header-container">
+            <h1><i class="fas fa-comments"></i> Chat</h1>
+        </div>
+    </header>
 
     <div class="container">
         <div class="sidebar">
@@ -56,40 +61,21 @@
         
         <div class="main-content">
             <h1><i class="fas fa-comments"></i> Habita Wise</h1>
-            <div id="chat-container"></div>
+            <div id="chat-container">
+                <div class="typing-indicator">
+                    <div class="typing-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
             <div class="input-container">
                 <input type="text" id="user-input" placeholder="Type your message here...">
                 <button id="send-button"><i class="fas fa-paper-plane"></i> Send</button>
             </div>
         </div>
     </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="logo">
-                        <i class="fas fa-balance-scale"></i>
-                        <span>Habita Wise</span>
-                    </div>
-                </div>
-                <div class="footer-links">
-                    <a href="/">Home</a>
-                    <a href="/#about">About</a>
-                    <a href="/#how-it-works">How It Works</a>
-                    <a href="/#contact">Contact Us</a>
-                </div>
-                <div class="footer-contact">
-                    <a href="mailto:sana@uni.minerva.edu"><i class="fas fa-envelope"></i> sana@uni.minerva.edu</a>
-                    <a href="tel:+14157746252"><i class="fas fa-phone"></i> (415) 774-6252</a>
-                </div>
-                <div class="footer-bottom">
-                    <p>&copy; 2024 Habita Wise</p>
-                </div>
-            </div>
-        </div>
-    </footer>
 
     <script>
         let sessionId = null;
@@ -101,11 +87,26 @@
         const uploadedFileInfo = document.getElementById('uploaded-file-info');
         const currentFileName = document.getElementById('current-file-name');
         const clearFileButton = document.getElementById('clear-file');
+        const typingIndicator = document.querySelector('.typing-indicator');
+
+        function showTypingIndicator() {
+            // Move typing indicator to end of chat container
+            chatContainer.appendChild(typingIndicator);
+            typingIndicator.style.display = 'block';
+            typingIndicator.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function hideTypingIndicator() {
+            typingIndicator.style.display = 'none';
+        }
 
         function addMessage(content, role) {
+            // Hide typing indicator before adding new message
+            hideTypingIndicator();
+            
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-message ${role}`;
-
+            
             // Configure marked options
             marked.setOptions({
                 breaks: true,
@@ -122,7 +123,12 @@
                 <div class="content">${renderedContent}</div>
             `;
             chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            // Move typing indicator after the new message
+            chatContainer.appendChild(typingIndicator);
+            
+            // Scroll to the new message
+            messageDiv.scrollIntoView({ behavior: 'smooth' });
         }
 
         function updateUploadedFileInfo(filename) {
@@ -176,6 +182,7 @@
 
             userInput.value = '';
             addMessage(message, 'user');
+            showTypingIndicator();
 
             try {
                 const response = await fetch('/api/chat', {
@@ -198,6 +205,7 @@
                     addMessage(`Error: ${data.error}`, 'system');
                 }
             } catch (error) {
+                hideTypingIndicator();
                 addMessage(`Error: ${error.message}`, 'system');
             }
         }
@@ -211,7 +219,7 @@
 
         // Add welcome message
         window.addEventListener('load', () => {
-            addMessage('Hello! I\'m your Tenant Rights Assistant. How can I help you today?', 'assistant');
+            addMessage('Hello! How can I help you today?', 'assistant');
         });
 
         // Mobile menu toggle
@@ -249,6 +257,8 @@
             background-color: var(--background-light);
             margin: 0;
             padding: 0;
+            justify-content: center;
+            align-items: center;
         }
 
         /* Sidebar styling */
@@ -260,6 +270,7 @@
             display: flex;
             flex-direction: column;
             gap: 20px;
+            height: 100%;
         }
 
         .sidebar h2 {
@@ -278,9 +289,11 @@
             flex-direction: column;
             padding: 24px;
             gap: 24px;
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             width: 100%;
+            height: 100%;
+            justify-content: center;
         }
 
         .main-content h1 {
@@ -304,6 +317,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            max-height: 70vh;
         }
 
         /* Message styling */
@@ -360,6 +374,7 @@
             background-color: var(--background-white);
             border-radius: 16px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-top: 24px;
         }
 
         #user-input {
@@ -614,99 +629,37 @@
             }
         }
 
-        /* Simplified Footer Styles */
-        footer {
-            background: var(--background-light);
-            padding: 2rem 0;
-            margin-top: 4rem;
-            border-top: 1px solid var(--border-color);
+        /* Loading Animation */
+        .typing-indicator {
+            display: none;
+            background-color: #f0f2f5;
+            padding: 1rem;
+            border-radius: 1rem;
+            margin: 0.5rem 0;
+            width: fit-content;
         }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .footer-content {
+        .typing-dots {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.5rem;
+            gap: 4px;
         }
 
-        .footer-brand {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            background-color: #90a4ae;
+            border-radius: 50%;
+            animation: typing 1s infinite ease-in-out;
         }
 
-        .footer-brand .logo i {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
+        .typing-dots span:nth-child(1) { animation-delay: 200ms; }
+        .typing-dots span:nth-child(2) { animation-delay: 300ms; }
+        .typing-dots span:nth-child(3) { animation-delay: 400ms; }
 
-        .footer-brand .logo span {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .footer-contact {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 0.5rem;
-        }
-
-        .footer-contact a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .footer-contact a:hover {
-            color: var(--primary-color);
-        }
-
-        .footer-contact i {
-            font-size: 1.1rem;
-        }
-
-        .footer-bottom {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .footer-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 1rem;
-            }
-
-            .footer-contact {
-                flex-direction: column;
-                gap: 0.5rem;
-                align-items: center;
-            }
+        @keyframes typing {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
     </style>
 </body>
