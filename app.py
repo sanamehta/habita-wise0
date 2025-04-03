@@ -46,8 +46,20 @@ def create_new_session():
 def index():
     return render_template('index.html')
 
-@app.route('/api/chat', methods=['POST'])
+@app.route('/chat')
 def chat():
+    return render_template('chat.html')
+
+@app.route('/resources')
+def resources():
+    return render_template('resources.html')
+
+@app.route('/lawyers')
+def lawyers():
+    return render_template('lawyers.html')
+
+@app.route('/api/chat', methods=['POST'])
+def chat_api():
     data = request.json
     user_input = data.get('message')
     session_id = data.get('session_id')
@@ -153,58 +165,100 @@ def chat():
 
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-    
-    file = request.files['file']
-    session_id = request.form.get('session_id')
-    
-    if not session_id or session_id not in sessions:
-        session_id = str(len(sessions))
-        sessions[session_id] = create_new_session()
-    
-    session = sessions[session_id]
-    
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
-    
-    if file and allowed_file(file.filename):
+    try:
+        if 'file' not in request.files:
+            print("No file part in request")
+            return jsonify({'error': 'No file part'}), 400
+        
+        file = request.files['file']
+        session_id = request.form.get('session_id')
+        
+        if not file or file.filename == '':
+            print("No selected file")
+            return jsonify({'error': 'No selected file'}), 400
+            
+        # Secure the filename
+        filename = secure_filename(file.filename)
+        print(f"Received file: {filename}")
+        print(f"Session ID: {session_id}")
+        
+        if not session_id or session_id not in sessions:
+            session_id = str(len(sessions))
+            sessions[session_id] = create_new_session()
+        
+        session = sessions[session_id]
+        
+        if not allowed_file(filename):
+            print(f"File type not allowed: {filename}")
+            return jsonify({'error': 'File type not allowed'}), 400
+        
         try:
-            # Save the uploaded file to a temporary file
-            with tempfile.NamedTemporaryFile(delete=False, suffix=f".{file.filename.split('.')[-1]}") as tmp_file:
-                tmp_file.write(file.read())
-                tmp_path = tmp_file.name
+            # Read the file content
+            file_content = file.read()
+            print(f"File size: {len(file_content)} bytes")
+            
+            # Create a BytesIO object from the file content
+            file_obj = io.BytesIO(file_content)
+            file_obj.name = filename
             
             # Upload file to OpenAI
-            with open(tmp_path, "rb") as file_data:
+            print("Uploading file to OpenAI...")
+            try:
+                # First upload the file
                 uploaded_file = client.files.create(
-                    file=file_data,
+                    file=file_obj,
                     purpose="assistants"
                 )
-            
-            # Clean up the temporary file
-            os.unlink(tmp_path)
-            
-            # Attach file to the thread
-            client.beta.threads.messages.create(
-                thread_id=session['thread_id'],
-                role="user",
-                content=f"I've uploaded a file named {file.filename}. Please analyze it.",
-                file_ids=[uploaded_file.id]
-            )
-            
-            # Track which file was last uploaded
-            session['last_uploaded_file'] = file.filename
-            
-            return jsonify({
-                'message': f"File {file.filename} uploaded successfully!",
-                'session_id': session_id
-            })
-            
+                print(f"File uploaded successfully to OpenAI with ID: {uploaded_file.id}")
+                
+                # Then create a message with the file
+                print("Creating message with file...")
+                message = client.beta.threads.messages.create(
+                    thread_id=session['thread_id'],
+                    role="user",
+                    content=[
+                        {
+                            "type": "text",
+                            "text": f"I've uploaded a file named {filename}. Please analyze it."
+                        }
+                    ],
+                    attachments=[
+                        {
+                            "file_id": uploaded_file.id,
+                            "tools": [{"type": "file_search"}]
+                        }
+                    ]
+                )
+                print(f"Message created with ID: {message.id}")
+                
+                # Track which file was last uploaded
+                session['last_uploaded_file'] = filename
+                
+                return jsonify({
+                    'message': f"File {filename} uploaded successfully!",
+                    'session_id': session_id
+                })
+                
+            except Exception as e:
+                print(f"OpenAI API Error: {str(e)}")
+                print(f"Error type: {type(e)}")
+                import traceback
+                print(f"Traceback: {traceback.format_exc()}")
+                return jsonify({'error': f"Error uploading to OpenAI: {str(e)}"}), 500
+                
         except Exception as e:
-            return jsonify({'error': f"Error uploading file: {str(e)}"}), 500
-    
-    return jsonify({'error': 'File type not allowed'}), 400
+            print(f"Error during file processing: {str(e)}")
+            print(f"Error type: {type(e)}")
+            import traceback
+            print(f"Traceback: {traceback.format_exc()}")
+            return jsonify({'error': f"Error processing file: {str(e)}"}), 500
+            
+    except Exception as e:
+        print(f"Unexpected error in upload_file: {str(e)}")
+        print(f"Error type: {type(e)}")
+        import traceback
+        print(f"Traceback: {traceback.format_exc()}")
+        return jsonify({'error': f"Unexpected error: {str(e)}"}), 500
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = {'pdf', 'txt', 'csv', 'xlsx', 'docx', 'json', 'png', 'jpg', 'jpeg'}

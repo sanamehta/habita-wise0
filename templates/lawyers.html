@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Tenant Rights Lawyers - Habita Wise</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-balance-scale"></i>
+                <span>Habita Wise</span>
+            </div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/#about">About</a>
+                <a href="/#how-it-works">How It Works</a>
+                <a href="/resources">Resources</a>
+                <a href="/lawyers" class="active">Find Lawyers</a>
+                <a href="/chat" class="cta-button">Chat Now</a>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Lawyers Header -->
+    <header class="page-header">
+        <div class="header-container">
+            <h1><i class="fas fa-gavel"></i> Find Tenant Rights Lawyers</h1>
+            <p>Connect with experienced lawyers specializing in tenant rights and housing law.</p>
+        </div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" placeholder="Enter your location..." id="location-input">
+                <button class="search-button">
+                    <i class="fas fa-search"></i> Find Lawyers
+                </button>
+            </div>
+            <div class="search-filters">
+                <select id="specialization">
+                    <option value="">All Specializations</option>
+                    <option value="eviction">Eviction Defense</option>
+                    <option value="discrimination">Housing Discrimination</option>
+                    <option value="repairs">Repairs & Maintenance</option>
+                    <option value="lease">Lease Disputes</option>
+                </select>
+                <select id="experience">
+                    <option value="">Years of Experience</option>
+                    <option value="1-5">1-5 years</option>
+                    <option value="5-10">5-10 years</option>
+                    <option value="10+">10+ years</option>
+                </select>
+                <select id="language">
+                    <option value="">Language</option>
+                    <option value="english">English</option>
+                    <option value="spanish">Spanish</option>
+                    <option value="mandarin">Mandarin</option>
+                    <option value="vietnamese">Vietnamese</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Lawyers -->
+    <section class="lawyers-grid">
+        <div class="lawyer-card">
+            <div class="lawyer-image">
+                <img src="https://via.placeholder.com/150" alt="Lawyer photo">
+            </div>
+            <div class="lawyer-info">
+                <h3>Sarah Johnson</h3>
+                <p class="specialty">Eviction Defense Specialist</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(4.5)</span>
+                </div>
+                <p class="experience"><i class="fas fa-briefcase"></i> 8 years experience</p>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> San Francisco, CA</p>
+                <button class="contact-button">Contact Now</button>
+            </div>
+        </div>
+
+        <div class="lawyer-card">
+            <div class="lawyer-image">
+                <img src="https://via.placeholder.com/150" alt="Lawyer photo">
+            </div>
+            <div class="lawyer-info">
+                <h3>Michael Chen</h3>
+                <p class="specialty">Housing Discrimination Expert</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>(5.0)</span>
+                </div>
+                <p class="experience"><i class="fas fa-briefcase"></i> 12 years experience</p>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> New York, NY</p>
+                <button class="contact-button">Contact Now</button>
+            </div>
+        </div>
+
+        <div class="lawyer-card">
+            <div class="lawyer-image">
+                <img src="https://via.placeholder.com/150" alt="Lawyer photo">
+            </div>
+            <div class="lawyer-info">
+                <h3>Maria Rodriguez</h3>
+                <p class="specialty">Lease Dispute Resolution</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(4.0)</span>
+                </div>
+                <p class="experience"><i class="fas fa-briefcase"></i> 6 years experience</p>
+                <p class="location"><i class="fas fa-map-marker-alt"></i> Los Angeles, CA</p>
+                <button class="contact-button">Contact Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-choose">
+        <div class="container">
+            <h2>Why Choose Our Network</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Verified Professionals</h3>
+                    <p>All lawyers are verified and licensed to practice tenant rights law.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-comments"></i>
+                    <h3>Free Initial Consultation</h3>
+                    <p>Get a free consultation to discuss your case and options.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Experienced Specialists</h3>
+                    <p>Access to lawyers with proven track records in tenant rights cases.</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Quick Response</h3>
+                    <p>Get connected with a lawyer within 24 hours of your request.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>Habita Wise</span>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/#about">About</a>
+                    <a href="/#how-it-works">How It Works</a>
+                    <a href="/#contact">Contact Us</a>
+                </div>
+                <div class="footer-contact">
+                    <a href="mailto:sana@uni.minerva.edu"><i class="fas fa-envelope"></i> sana@uni.minerva.edu</a>
+                    <a href="tel:+14157746252"><i class="fas fa-phone"></i> (415) 774-6252</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Habita Wise</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .page-header {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .header-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            background: white;
+            padding: 2rem;
+            margin-top: -2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .search-filters {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-filters select {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .lawyers-grid {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .lawyer-card {
+            background: white;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .lawyer-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .lawyer-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .lawyer-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lawyer-info {
+            padding: 1.5rem;
+        }
+
+        .lawyer-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .specialty {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .rating {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        .rating span {
+            color: var(--text-secondary);
+            margin-left: 0.5rem;
+        }
+
+        .experience, .location {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .contact-button:hover {
+            background: var(--secondary-color);
+        }
+
+        .why-choose {
+            background: var(--background-light);
+            padding: 4rem 2rem;
+        }
+
+        .why-choose h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+        }
+
+        .benefits-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-item {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .benefit-item i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .benefit-item p {
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-filters {
+                flex-direction: column;
+            }
+
+            .lawyers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Simplified Footer Styles */
+        footer {
+            background: var(--background-light);
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-brand .logo i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .footer-brand .logo span {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-contact {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer-contact a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-contact a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-contact i {
+            font-size: 1.1rem;
+        }
+
+        .footer-bottom {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .footer-contact {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: center;
+            }
+        }
+    </style>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html> 

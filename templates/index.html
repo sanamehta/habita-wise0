@@ -3,116 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tenant Rights Assistant</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Habita Wise - Your Legal AI Companion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='landing.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>Upload Files</h2>
-            <form id="upload-form">
-                <input type="file" id="file-upload" accept=".pdf,.txt,.csv,.xlsx,.docx,.json,.png,.jpg,.jpeg">
-                <button type="submit">Upload</button>
-            </form>
-            <p class="caption">Supported formats: PDF, TXT, Word, Excel, Images</p>
-        </div>
-        
-        <div class="main-content">
-            <h1>Tenant Rights Assistant</h1>
-            <div id="chat-container"></div>
-            <div class="input-container">
-                <input type="text" id="user-input" placeholder="Type your message here...">
-                <button id="send-button">Send</button>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-balance-scale"></i>
+                <span>Habita Wise</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#contact">Contact</a>
+                <div class="action-buttons">
+                    <a href="/resources" class="action-button">Resources</a>
+                    <a href="/lawyers" class="action-button">Find Lawyers</a>
+                    <a href="/chat" class="cta-button">Chat Now</a>
+                </div>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
             </div>
         </div>
-    </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Empowering Tenants, One Chat at a Time</h1>
+                <p>Your AI-powered legal assistant for tenant rights. Get instant guidance on leases, disputes, evictions, and more – all for free.</p>
+                <div class="hero-buttons">
+                    <a href="/resources" class="action-button">Resources</a>
+                    <a href="/lawyers" class="action-button">Find Lawyers</a>
+                    <a href="/chat" class="cta-button">Chat Now</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='chatbot-illustration.svg') }}" alt="AI Chatbot Illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Why Choose Our Assistant</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-clock"></i>
+                <h3>24/7 Availability</h3>
+                <p>Get help whenever you need it, day or night.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-lock"></i>
+                <h3>Confidential</h3>
+                <p>Your conversations are private and secure.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-graduation-cap"></i>
+                <h3>Expert Knowledge</h3>
+                <p>Powered by legal expertise and AI technology.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h3>Free Service</h3>
+                <p>Access legal guidance without any cost.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <h2>How It Works</h2>
+        <div class="steps-container">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Start Chatting</h3>
+                <p>Click the Chat Now button to begin your conversation.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Ask Questions</h3>
+                <p>Describe your situation or ask specific questions.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Get Guidance</h3>
+                <p>Receive instant, accurate legal information.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Get Started?</h2>
+        <p>Join thousands of tenants who have found clarity and confidence through our AI assistant.</p>
+        <a href="/chat" class="cta-button">Chat Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <i class="fas fa-balance-scale"></i>
+                        <span>Habita Wise</span>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/#about">About</a>
+                    <a href="/#how-it-works">How It Works</a>
+                    <a href="/#contact">Contact Us</a>
+                </div>
+                <div class="footer-contact">
+                    <a href="mailto:sana@uni.minerva.edu"><i class="fas fa-envelope"></i> sana@uni.minerva.edu</a>
+                    <a href="tel:+14157746252"><i class="fas fa-phone"></i> (415) 774-6252</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Habita Wise</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
-        let sessionId = null;
-        const chatContainer = document.getElementById('chat-container');
-        const userInput = document.getElementById('user-input');
-        const sendButton = document.getElementById('send-button');
-        const uploadForm = document.getElementById('upload-form');
-        const fileUpload = document.getElementById('file-upload');
-
-        function addMessage(content, role) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${role}`;
-            messageDiv.innerHTML = `
-                <div class="avatar">${role === 'user' ? '👤' : '🤖'}</div>
-                <div class="content">${content}</div>
-            `;
-            chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        async function sendMessage() {
-            const message = userInput.value.trim();
-            if (!message) return;
-
-            userInput.value = '';
-            addMessage(message, 'user');
-
-            try {
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        message: message,
-                        session_id: sessionId
-                    })
-                });
-
-                const data = await response.json();
-                
-                if (response.ok) {
-                    sessionId = data.session_id;
-                    addMessage(data.response, 'assistant');
-                } else {
-                    addMessage(`Error: ${data.error}`, 'system');
-                }
-            } catch (error) {
-                addMessage(`Error: ${error.message}`, 'system');
-            }
-        }
-
-        async function uploadFile(event) {
-            event.preventDefault();
-            const file = fileUpload.files[0];
-            if (!file) return;
-
-            const formData = new FormData();
-            formData.append('file', file);
-            formData.append('session_id', sessionId);
-
-            try {
-                const response = await fetch('/api/upload', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-                
-                if (response.ok) {
-                    sessionId = data.session_id;
-                    addMessage(`File ${file.name} uploaded successfully!`, 'system');
-                } else {
-                    addMessage(`Error: ${data.error}`, 'system');
-                }
-            } catch (error) {
-                addMessage(`Error: ${error.message}`, 'system');
-            }
-
-            fileUpload.value = '';
-        }
-
-        sendButton.addEventListener('click', sendMessage);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            document.querySelector('.nav-links').classList.toggle('active');
         });
-        uploadForm.addEventListener('submit', uploadFile);
     </script>
 </body>
 </html> 
