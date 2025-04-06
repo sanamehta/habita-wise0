@@ -87,10 +87,6 @@ def phone_call_organization(organization_name, organization_phone_number, steps,
         # For demo purposes, we'll use a fixed phone number if one isn't provided
         #if not organization_phone_number or organization_phone_number == "":
         organization_phone_number = '+14152871837'
-            
-        # Your Vapi API Authorization token
-        auth_token = "1657a012-7056-42cc-ac58-5ac03fcf8700"
-        
         
         # The Phone Number ID, and the Customer details for the call
         phone_number_id = '9ed4e277-acd3-43d5-9754-4afbc0b8da72'
@@ -98,7 +94,7 @@ def phone_call_organization(organization_name, organization_phone_number, steps,
         
         # Create the header with Authorization token
         headers = {
-            'Authorization': f'Bearer {auth_token}',
+            'Authorization': f'Bearer {VAPI_AUTH_TOKEN}',
             'Content-Type': 'application/json',
         }
         
