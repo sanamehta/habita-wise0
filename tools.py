@@ -104,7 +104,7 @@ def phone_call_organization(organization_name, organization_phone_number, steps,
                 "firstMessage": f"Hello, I am calling on behalf of a tenant name {tenant_name}. I have a complaint against the landlord named {landlord_name}. I want to file an official complaint. Can you help me?",
                 "model": {
                     "provider": "openai",
-                    "model": "gpt-3.5-turbo",
+                    "model": "gpt-4o-mini",
                     "messages": [
                         {
                             "role": "system",
