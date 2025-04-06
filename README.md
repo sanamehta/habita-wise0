@@ -2,7 +2,7 @@
 
 ## Overview
 
-Tenant Rights Assistant is an AI-powered Streamlit application designed to help tenants navigate complex legal situations, understand their rights, and take informed actions when facing issues with their rental properties.
+Tenant Rights Assistant is an AI-powered a flask based application designed to help tenants navigate complex legal situations, understand their rights, and take informed actions when facing issues with their rental properties.
 
 ### Key Features
 
@@ -57,7 +57,7 @@ VAPI_AUTH_TOKEN=your_vapi_auth_token
 ## Running the Application
 
 ```bash
-streamlit run app.py
+python app.py
 ```
 
 ## Project Structure

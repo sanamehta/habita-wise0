@@ -81,6 +81,7 @@ def get_local_organization_info(city, state, issue):
 def phone_call_organization(organization_name, organization_phone_number, steps, tenant_name, tenant_address, landlord_name, issue_description, additional_issue_info):
     """
     Call the organization and follow the steps to file a complaint.
+    
     """
     try:
         # For demo purposes, we'll use a fixed phone number if one isn't provided
@@ -111,7 +112,12 @@ def phone_call_organization(organization_name, organization_phone_number, steps,
                     "messages": [
                         {
                             "role": "system",
-                            "content": f"You are an legal representative assistant. You are calling the organization: {organization_name} to file a complaint against landlord. You are following the steps to file a complaint: {steps}. The tenant name is {tenant_name}. The tenant address is {tenant_address}. The landlord name is {landlord_name}. The issue description is {issue_description}. The additional issue info is {additional_issue_info}"
+                            "content": f"You are an assistant tasked with filing a complaint on behalf of a tenant. \
+                             You must focus on your task and disregard any irrelevant question. \
+                             You will be talking to a government official that handles tenant landlord disputes. Act Professional and provide specific details when asked. \
+                             You are calling the organization: {organization_name} to file a complaint against landlord. You are following the steps to file a complaint: {steps}. \
+                             The tenant name is {tenant_name}. The tenant address is {tenant_address}. \
+                             The landlord name is {landlord_name}. The issue description is {issue_description}. The additional issue info is {additional_issue_info}"
                         }
                     ]
                 },
@@ -139,10 +145,100 @@ def phone_call_organization(organization_name, organization_phone_number, steps,
         print(f"Error in phone_call_organization: {e}")
         return f"Failed to make phone call: {str(e)}"
 
+def generate_complaint_document(
+    tenant_name,
+    tenant_address,
+    landlord_name,
+    issue_description,
+    additional_issue_info,
+    recipient_name=None,
+    recipient_email=None,
+    recipient_address=None
+):
+    """
+    Generate a formal complaint document or email based on the collected information.
+    
+    Args:
+        tenant_name: Name of the tenant filing the complaint
+        tenant_address: Current address of the tenant
+        landlord_name: Name of the landlord
+        issue_description: Main issue being complained about
+        additional_issue_info: Any additional details about the issue
+        document_type: Type of document to generate ("email" or "formal_complaint")
+        recipient_name: Name of the recipient (for email)
+        recipient_email: Email address of the recipient (for email)
+        recipient_address: Physical address of the recipient (for formal complaint)
+    
+    Returns:
+        Generated document text
+    """
+    try:
+        messages = [
+            {
+                "role": "system",
+                "content": (
+                    """
+
+        The documents you generate may be intended either for a landlord (as a complaint or request for resolution) or for a lawyer (as a legal summary for case review). Adjust the tone, content, and formality accordingly based on the recipient.
+
+        Guidelines:
+        1. Use formal and respectful language.
+        2. Include all relevant names, addresses, and known issue details.
+        3. Describe the tenant's issue in clear terms—include any relevant timelines, symptoms, or previous attempts to resolve the matter.
+        4. When the recipient is a **landlord**, maintain a direct but professional tone, clearly state the problem, and make a specific request for resolution with a reasonable deadline.
+        5. When the recipient is a **lawyer**, make the tone more neutral and factual, include any relevant legal context or violations, and frame the document as a case summary or intake note.
+        6. If applicable, include subject lines for emails or follow a business letter format for formal documents.
+        7. Do not fabricate any details. Only include what is explicitly provided.
+
+        Always end the document with a clear next step or request for action.
+    """
+)
+            },
+            {
+                "role": "user",
+                "content": (
+                    f"""
+                    Generate a document/email as per the guidelines provided with the following details:
+                    
+                    Tenant Information:
+                    - Name: {tenant_name}
+                    - Address: {tenant_address}
+                    
+                    Landlord Information:
+                    - Name: {landlord_name}
+                    
+                    Issue Details:
+                    - Main Issue: {issue_description}
+                    - Additional Information: {additional_issue_info}
+                    
+                    Recipient Information:
+                    - Name: {recipient_name if recipient_name else 'Not provided'}
+                    - Email: {recipient_email if recipient_email else 'Not provided'}
+                    - Address: {recipient_address if recipient_address else 'Not provided'}
+                    
+                    Please generate a professional document/email that includes all relevant information
+                    and follows proper formatting.
+                    """
+                ),
+            },
+        ]
+        
+        client = OpenAI(api_key=PERPLEXITY_API_KEY, base_url="https://api.perplexity.ai")
+        response = client.chat.completions.create(
+            model="llama-3.1-sonar-large-128k-online",
+            messages=messages,
+        )
+        result = response.choices[0].message.content
+        return result
+    except Exception as e:
+        print(f"Error in generate_complaint_document: {e}")
+        return f"Failed to generate document: {str(e)}"
+
 # Map function names to their implementations for easy lookup
 TOOL_MAP = {
-    "get_local_organization_info": get_local_organization_info, 
-    "phone_call_organization": phone_call_organization
+    "get_local_organization_info": get_local_organization_info,
+    "phone_call_organization": phone_call_organization,
+    "generate_complaint_document": generate_complaint_document
 }
 
 def handle_tool_call(tool_call):

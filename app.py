@@ -7,7 +7,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import io
 import json
-from tools import handle_tool_call
+from tools import handle_tool_call, generate_complaint_document
 from werkzeug.utils import secure_filename
 import base64
 
@@ -23,13 +23,28 @@ app.secret_key = os.urandom(24)
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 # Get API key and Assistant ID from environment variables
-api_key = os.getenv("OPENAI_API_KEY")
-assistant_id = os.getenv("ASSISTANT_ID")
-perplexity_api_key = os.getenv("PERPLEXITY_API_KEY")
-vapi_auth_token = os.getenv("VAPI_AUTH_TOKEN")
+api_key = os.getenv("OPENAI_API_KEY", "").strip()
+if not api_key:
+    raise ValueError("OPENAI_API_KEY environment variable is not set or is empty")
+
+assistant_id = os.getenv("ASSISTANT_ID", "").strip()
+if not assistant_id:
+    raise ValueError("ASSISTANT_ID environment variable is not set or is empty")
+
+perplexity_api_key = os.getenv("PERPLEXITY_API_KEY", "").strip()
+vapi_auth_token = os.getenv("VAPI_AUTH_TOKEN", "").strip()
 
 # Initialize OpenAI client
-client = OpenAI(api_key=api_key)
+try:
+    client = OpenAI(
+        api_key=api_key,
+        organization=None,  # Optional: specify organization if needed
+        base_url="https://api.openai.com/v1"  # Explicitly set the base URL
+    )
+    # Test the client with a simple operation
+    client.models.list()
+except Exception as e:
+    raise RuntimeError(f"Failed to initialize OpenAI client: {str(e)}")
 
 # Store sessions in memory (in production, use a proper database)
 sessions = {}
