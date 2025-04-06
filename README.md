@@ -2,21 +2,15 @@
 
 ## Overview
 
-Tenant Rights Assistant is an AI-powered a flask based application designed to help tenants navigate complex legal situations, understand their rights, and take informed actions when facing issues with their rental properties.
+Habita-Wise is an AI-powered Flask-based application designed to help tenants navigate complex legal situations, understand their rights, and take informed actions when facing issues with their rental properties.
 
 ### Key Features
 
-- AI-Driven Guidance: Through conversational interaction, the app collects tenant issues, retrieves insights from a database of historical landlord-tenant cases, and predicts the likelihood of success in legal disputes.
-
-- Legal Resource Retrieval: An integrated Researcher agent fetches location-specific, up-to-date filing procedures, forms, and contact details.
-
-- Automated Action Tools: Features like email drafting, report generation, and voice-enabled calls save time and reduce stress for tenants.
-
-- Tenant Empowerment: The platform simplifies complex legal jargon, ensuring users understand their rights and are equipped to take informed action.
-
-- Scalability: While the app initially focuses on California, it is designed to scale nationally to address the broader rental market.
-- Legal Consultation: Generate lists of potential legal professionals
-- Document Upload: Support for uploading and analyzing rental agreements and evidence
+- AI-Driven Guidance: Through conversational interaction, the app collects tenant issues and provides personalized guidance based on legal knowledge.
+- Document Analysis: Upload and analyze rental agreements and related documents
+- Resource Finding: Access to location-specific legal resources and information
+- Automated Document Generation: Create necessary legal documents and communications
+- Tenant Empowerment: Simplifies complex legal jargon for better understanding
 
 ## Prerequisites
 
@@ -24,15 +18,15 @@ Tenant Rights Assistant is an AI-powered a flask based application designed to h
 You'll need to set up the following API keys in a `.env` file:
 - `OPENAI_API_KEY`: OpenAI API key for AI assistance
 - `ASSISTANT_ID`: Your specific OpenAI Assistant ID
-- `PERPLEXITY_API_KEY`: Perplexity API key for local organization research
-- `VAPI_AUTH_TOKEN`: Vapi API token for potential phone call features
+- `PERPLEXITY_API_KEY`: Perplexity API key for research capabilities
+- `VAPI_AUTH_TOKEN`: Vapi API token for communication features
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/tenant-rights-assistant.git
-cd tenant-rights-assistant
+git clone https://github.com/yourusername/habita-wise0.git
+cd habita-wise0
 ```
 
 2. Create a virtual environment:
@@ -60,30 +54,56 @@ VAPI_AUTH_TOKEN=your_vapi_auth_token
 python app.py
 ```
 
+The application will be available at `http://localhost:5000`
+
 ## Project Structure
 
-- `app.py`: Main Streamlit application
-- `tools.py`: Backend functions for API calls and tool handling
-- `next_action_steps.py`: Generate interactive next action steps
-- `style.css`: Custom styling for the application
-- `.env`: Environment variables (not tracked in version control)
+```
+habita-wise0/
+├── app.py              # Main Flask application
+├── tools.py            # Core functionality and API integrations
+├── requirements.txt    # Project dependencies
+├── .env               # Environment variables (not tracked in git)
+├── .gitignore         # Git ignore rules
+├── static/            # Static assets (CSS, JavaScript, images)
+├── templates/         # HTML templates for the web interface
+├── uploads/           # Directory for uploaded documents
+└── venv/             # Python virtual environment
+```
+
+## Dependencies
+
+The project requires the following main dependencies (as specified in requirements.txt):
+- Flask 3.0.2
+- OpenAI 1.70.0
+- python-dotenv 1.0.0
+- requests 2.31.0
+- python-dateutil 2.8.2
+- email-validator 2.1.0.post1
 
 ## Usage
 
-1. Open the application in your browser
-2. Upload relevant documents (rental agreement, notices, etc.)
-3. Describe your tenant issue
-4. Receive AI-powered guidance
-5. Choose from next action steps:
-   - File a Complaint with Local Authority
-   - Communicate with Landlord
-   - Consult Legal Professionals
+1. Start the application by running `python app.py`
+2. Navigate to `http://localhost:5000` in your web browser
+3. Upload relevant documents (rental agreement, notices, etc.)
+4. Describe your tenant issue
+5. Receive AI-powered guidance and recommendations
+6. Generate necessary documents or find relevant resources
 
-Project Demo: [https://www.loom.com/share/4fc28087b0f143669264fa0576234c22?sid=67f74217-41e7-4d83-8e2f-3fac3fdfdf8a]
+## Contributing
 
-## Legal Disclaimer
+1. Fork the repository
+2. Create a new branch for your feature
+3. Make your changes
+4. Submit a pull request
 
-This application provides general information and guidance. It is not a substitute for professional legal advice. Always consult with a qualified legal professional for specific legal concerns.
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support, please open an issue in the GitHub repository or contact the maintainers.
 
 
 
